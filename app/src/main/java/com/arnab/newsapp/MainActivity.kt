@@ -2,33 +2,39 @@ package com.arnab.newsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.arnab.newsapp.adapter.ViewPagerAdapter
 import com.arnab.newsapp.ui.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val tabLayout: TabLayout = findViewById(R.id.tab_layout)
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
 
-        viewPager.adapter = ViewPagerAdapter(supportFragmentManager,lifecycle)
-
-        TabLayoutMediator(tabLayout,viewPager){tab,position->
-            when(position){
-                0 -> tab.text = "Hot Headline"
-                1 -> tab.text = "Business"
-                2 -> tab.text = "Entertainment"
-                3 -> tab.text = "General"
-                4 -> tab.text = "Health"
-                5 -> tab.text = "Science"
-                6 -> tab.text = "Sports"
-                7 -> tab.text = "Technology"
+        val navView: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        navView.setOnItemSelectedListener {
+            when(it.itemId){
+                R.id.nav_news->{findNavController(R.id.fragmentContainerView).navigate(R.id.newsFragment)}
+                R.id.nav_bookmarks->{findNavController(R.id.fragmentContainerView).navigate(R.id.favouriteFragment)}
             }
-        }.attach()
+            true
+        }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }

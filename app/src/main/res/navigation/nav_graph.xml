@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/newsFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.arnab.newsapp.ui.HeadlineFragment"
-        android:label="fragment_main"
-        tools:layout="@layout/fragment_headline" />
+        android:id="@+id/favouriteFragment"
+        android:name="com.arnab.newsapp.ui.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.arnab.newsapp.ui.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
 </navigation>
