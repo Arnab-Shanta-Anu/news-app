@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.arnab.newsapp.R
+import com.arnab.newsapp.util.Constants
 
-class WebViewFragment(private val url: String) : Fragment() {
+class WebViewFragment() : Fragment() {
+    private lateinit var url: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
+            url = it.getString(Constants.NEWS_URL).toString()
         }
     }
 

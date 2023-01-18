@@ -10,54 +10,54 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/news_img"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="224dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="28dp"
+                android:text="News Title"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/news_img"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/news_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="News Title"
-                    android:textSize="24sp" />
+            <TextView
+                android:id="@+id/news_short_description"
+                android:layout_width="221dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="12dp"
+                android:text="Short Description"
+                android:textSize="24sp"
+                app:layout_constraintStart_toEndOf="@+id/news_img"
+                app:layout_constraintTop_toBottomOf="@+id/news_title" />
 
-                <TextView
-                    android:id="@+id/news_short_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Short Description"
-                    android:textSize="24sp" />
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="34dp" />
-
-                <TextView
-                    android:id="@+id/continue_reading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Continue Reading"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@android:color/holo_green_light"
-                    android:textSize="20sp" />
-            </LinearLayout>
-        </LinearLayout>
-
+            <TextView
+                android:id="@+id/continue_reading"
+                android:layout_width="218dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="40dp"
+                android:text="Continue Reading"
+                android:textAlignment="viewEnd"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@+id/news_img"
+                app:layout_constraintTop_toBottomOf="@+id/news_short_description" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

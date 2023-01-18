@@ -65,8 +65,10 @@
         android:label="fragment_web_view"
         tools:layout="@layout/fragment_web_view" >
         <argument
-            android:name="uri"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:name="NEWS_URL"
+            app:argType="string" />
     </fragment>
+    <action
+        android:id="@+id/action_global_webViewFragment"
+        app:destination="@id/webViewFragment" />
 </navigation>

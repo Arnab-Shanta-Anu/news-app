@@ -1,16 +1,22 @@
 package com.arnab.newsapp.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.RecyclerView
 import com.arnab.newsapp.R
 import com.arnab.newsapp.model.Article
+import com.arnab.newsapp.ui.NewsFragment
 import com.arnab.newsapp.ui.WebViewFragment
+import com.arnab.newsapp.util.Constants
 import com.bumptech.glide.Glide
 
 class NewsAdapter(
@@ -33,15 +39,13 @@ class NewsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = dataSet[position]
-        Log.d(
-            "NewsAdapter",
-            "onBindViewHolder: data \n${item.urlToImage}\n${item.title}\n${item.content}"
-        )
         Glide.with(context).load(item.urlToImage).into(holder.newsImage)
         holder.newsTitle.text = item.title
         holder.newsShortDesc.text = item.description
         holder.continueReading.setOnClickListener {
-            WebViewFragment(item.url!!)
+            val bundle = Bundle()
+            bundle.putString(Constants.NEWS_URL, item.url)
+            it.findNavController().navigate(R.id.webViewFragment, bundle)
         }
     }
 
