@@ -8,17 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arnab.newsapp.R
-import com.arnab.newsapp.viewmodel.NewsViewModel
+import com.arnab.newsapp.model.Article
 import com.bumptech.glide.Glide
 
 class NewsAdapter(
     private val context: Context,
-    private val viewModel: NewsViewModel
+    private val dataSet: List<Article>
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    private val dataSet = viewModel.status
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newsImage: ImageView = itemView.findViewById(R.id.news_img)
         val newsTitle: TextView = itemView.findViewById(R.id.news_title)
         val newsShortDesc: TextView = itemView.findViewById(R.id.news_short_description)
@@ -31,15 +29,14 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = dataSet.value?.get(position)
+        val item = dataSet[position]
 
-        Glide.with(context).load(item!!.urlToImage).into(holder.newsImage)
-        holder.newsTitle.text = item!!.title
-        holder.newsShortDesc.text = item!!.content
-
+        Glide.with(context).load(item.urlToImage).into(holder.newsImage)
+        holder.newsTitle.text = item.title
+        holder.newsShortDesc.text = item.content
     }
 
     override fun getItemCount(): Int {
-        return dataSet.value?.size ?: 0
+        return dataSet.size
     }
 }

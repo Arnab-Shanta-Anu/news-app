@@ -6,14 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.arnab.newsapp.model.Article
-import com.arnab.newsapp.model.News
+import com.arnab.newsapp.model.NewsData
 import com.arnab.newsapp.network.NewsApi
 import kotlinx.coroutines.launch
 
 class NewsViewModel(): ViewModel() {
-    private val _status = MutableLiveData<List<Article>>()
+    private val _newsData = MutableLiveData<NewsData>()
 
-    val status: LiveData<List<Article>> = _status
+    val newsData = _newsData
     init {
         Log.d("TEST", ": inside init block")
         getData()
@@ -23,11 +23,11 @@ class NewsViewModel(): ViewModel() {
         viewModelScope.launch {
             try {
                 Log.d("TEST", "getNews: inside getNews()")
-                val listResult: News = NewsApi.retrofitService.getData()
+                val data: NewsData = NewsApi.retrofitService.getData()
                 Log.d("TEST", "getNews: got data")
-                _status.value = listResult.articles
+                _newsData.value = data
             } catch (e: Exception) {
-
+                Log.e("TEST", "getNews: $e")
             }
         }
     }
