@@ -12,19 +12,16 @@ import kotlinx.coroutines.launch
 
 class NewsViewModel(): ViewModel() {
     private val _newsData = MutableLiveData<NewsData>()
-
     val newsData = _newsData
+
     init {
-        Log.d("TEST", ": inside init block")
         getData()
     }
 
     private fun getData() {
         viewModelScope.launch {
             try {
-                Log.d("TEST", "getNews: inside getNews()")
                 val data: NewsData = NewsApi.retrofitService.getData()
-                Log.d("TEST", "getNews: got data")
                 _newsData.value = data
             } catch (e: Exception) {
                 Log.e("TEST", "getNews: $e")
