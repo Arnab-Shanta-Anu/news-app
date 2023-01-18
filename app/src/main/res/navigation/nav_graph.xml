@@ -19,4 +19,54 @@
             android:id="@+id/action_newsFragment_to_favouriteFragment"
             app:destination="@id/favouriteFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/businessFragment"
+        android:name="com.arnab.newsapp.ui.BusinessFragment"
+        android:label="fragment_business"
+        tools:layout="@layout/fragment_business" />
+    <fragment
+        android:id="@+id/entertainmentFragment"
+        android:name="com.arnab.newsapp.ui.EntertainmentFragment"
+        android:label="fragment_entertainment"
+        tools:layout="@layout/fragment_entertainment" />
+    <fragment
+        android:id="@+id/generalFragment"
+        android:name="com.arnab.newsapp.ui.GeneralFragment"
+        android:label="fragment_general"
+        tools:layout="@layout/fragment_general" />
+    <fragment
+        android:id="@+id/headlineFragment"
+        android:name="com.arnab.newsapp.ui.HeadlineFragment"
+        android:label="fragment_headline"
+        tools:layout="@layout/fragment_headline" />
+    <fragment
+        android:id="@+id/healthFragment"
+        android:name="com.arnab.newsapp.ui.HealthFragment"
+        android:label="fragment_health"
+        tools:layout="@layout/fragment_health" />
+    <fragment
+        android:id="@+id/scienceFragment"
+        android:name="com.arnab.newsapp.ui.ScienceFragment"
+        android:label="fragment_science"
+        tools:layout="@layout/fragment_science" />
+    <fragment
+        android:id="@+id/sportsFragment"
+        android:name="com.arnab.newsapp.ui.SportsFragment"
+        android:label="fragment_sports"
+        tools:layout="@layout/fragment_sports" />
+    <fragment
+        android:id="@+id/technologyFragment"
+        android:name="com.arnab.newsapp.ui.TechnologyFragment"
+        android:label="fragment_technology"
+        tools:layout="@layout/fragment_technology" />
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.arnab.newsapp.ui.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="uri"
+            app:argType="string"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>
