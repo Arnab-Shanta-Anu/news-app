@@ -34,12 +34,9 @@ class NewsAdapter(
         val item = dataSet.value?.get(position)
 
         Glide.with(context).load(item!!.urlToImage).into(holder.newsImage)
-        if (item != null) {
-            holder.newsTitle.text = item.title
-        }
-        if (item != null) {
-            holder.newsShortDesc.text = item.content
-        }
+        holder.newsTitle.text = item!!.title
+        holder.newsShortDesc.text = item!!.content
+
     }
 
     override fun getItemCount(): Int {
