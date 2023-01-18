@@ -16,14 +16,15 @@ class NewsViewModel(): ViewModel() {
     val status: LiveData<List<Article>> = _status
     init {
         Log.d("TEST", ": inside init block")
-        getNews()
+        getData()
     }
 
-    private fun getNews() {
+    private fun getData() {
         viewModelScope.launch {
             try {
+                Log.d("TEST", "getNews: inside getNews()")
                 val listResult: News = NewsApi.retrofitService.getData()
-                Log.d("TEST", "getNews: ${listResult.articles.size} News retrieved")
+                Log.d("TEST", "getNews: got data")
                 _status.value = listResult.articles
             } catch (e: Exception) {
 
