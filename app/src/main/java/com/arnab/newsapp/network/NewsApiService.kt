@@ -1,6 +1,7 @@
 package com.arnab.newsapp.network
 
 import com.arnab.newsapp.model.NewsData
+import com.arnab.newsapp.util.Constants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -19,7 +20,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface NewsApiService {
-    @GET("everything?q=*&apiKey=cd821a3bef634e8593e60a5f5024ba79")
+    @GET("everything?q=*&apiKey=${Constants.API_KEY}")
     suspend fun getData() : NewsData
 }
 object NewsApi {

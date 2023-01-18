@@ -39,7 +39,7 @@ class NewsAdapter(
         )
         Glide.with(context).load(item.urlToImage).into(holder.newsImage)
         holder.newsTitle.text = item.title
-        holder.newsShortDesc.text = item.content
+        holder.newsShortDesc.text = item.description
         holder.continueReading.setOnClickListener {
             WebViewFragment(item.url!!)
         }
