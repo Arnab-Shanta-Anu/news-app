@@ -6,9 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.arnab.newsapp.database.dao.NewsAppDBDao
 import com.arnab.newsapp.database.model.ArticlesDBModel
-import com.arnab.newsapp.database.model.FavortiesDBModel
 
-@Database(entities = [ArticlesDBModel::class, FavortiesDBModel::class], version = 1, exportSchema = false)
+@Database(entities = [ArticlesDBModel::class], version = 1, exportSchema = false)
 abstract class NewsAppDatabase : RoomDatabase() {
 
     abstract fun newsAppDBDao(): NewsAppDBDao

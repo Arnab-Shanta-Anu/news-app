@@ -1,28 +1,28 @@
 package com.arnab.newsapp.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.arnab.newsapp.model.Article
+import androidx.room.Update
+import com.arnab.newsapp.database.model.ArticlesDBModel
 
 @Dao
 interface NewsAppDBDao {
-    //actions for articles table
+    //actions for article table
     @Insert
-    suspend fun insertArticle(article: Article)
+    suspend fun insertArticle(article: ArticlesDBModel)
+
     @Query("SELECT * FROM article")
-    suspend fun getArticles(): List<Article>
-    @Query("DELETE FROM article")
+    fun getArticles(): LiveData<List<ArticlesDBModel>>
+
+    @Query("DELETE FROM article WHERE favorite=0")
     suspend fun deleteAllArticles()
 
-    //actions for favorite table
-    @Insert
-    suspend fun insertToFavorite(article: Article)
-    @Query("SELECT * FROM favorite")
-    suspend fun getFavorites(): List<Article>
-    @Query("DELETE FROM favorite")
-    suspend fun deleteFavorites()
+    @Update
+    suspend fun addToFavorite(article: ArticlesDBModel)
+
     @Delete
-    suspend fun deleteFromFavorite(article: Article)
+    suspend fun deleteFromFavorite(article: ArticlesDBModel)
 }

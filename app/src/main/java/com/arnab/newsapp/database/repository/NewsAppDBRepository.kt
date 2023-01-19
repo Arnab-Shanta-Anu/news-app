@@ -1,31 +1,28 @@
 package com.arnab.newsapp.database.repository
 
+import androidx.lifecycle.LiveData
+import androidx.room.Delete
 import com.arnab.newsapp.database.dao.NewsAppDBDao
+import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.model.Article
 
 class NewsAppDBRepository(private val newsAppDBDao: NewsAppDBDao) {
     //actions for articles table
-    suspend fun insertArticle(article: Article) {
+    val allNews: LiveData<List<ArticlesDBModel>> = newsAppDBDao.getArticles()
+
+    suspend fun insertArticle(article: ArticlesDBModel) {
         newsAppDBDao.insertArticle(article)
     }
-    suspend fun getArticles(): List<Article> {
-        return newsAppDBDao.getArticles()
-    }
+
     suspend fun deleteAllArticles() {
         newsAppDBDao.deleteAllArticles()
     }
 
-    //actions for favorite table
-    suspend fun insertToFavorite(article: Article) {
-        newsAppDBDao.insertToFavorite(article)
+    suspend fun addToFavorite(article: ArticlesDBModel){
+        newsAppDBDao.addToFavorite(article)
     }
-    suspend fun getFavorites(): List<Article> {
-        return newsAppDBDao.getFavorites()
-    }
-    suspend fun deleteFavorites() {
-        newsAppDBDao.deleteFavorites()
-    }
-    suspend fun deleteFromFavorite(article: Article) {
+
+    suspend fun deleteFromFavorite(article: ArticlesDBModel){
         newsAppDBDao.deleteFromFavorite(article)
     }
 }
