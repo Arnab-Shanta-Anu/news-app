@@ -42,6 +42,7 @@ class NewsAdapter(
         Glide.with(context).load(item.urlToImage).into(holder.newsImage)
         holder.newsTitle.text = item.title
         holder.newsShortDesc.text = item.description
+
         holder.continueReading.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(Constants.NEWS_URL, item.url)
