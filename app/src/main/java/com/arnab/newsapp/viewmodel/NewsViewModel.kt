@@ -23,8 +23,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         val dao = NewsAppDatabase.getDatabase(application).newsAppDBDao()
         repository = NewsAppDBRepository(dao)
 
-        checkIfAvailableInDB()
-        getData()
+        if (!checkIfAvailableInDB()) {
+            getData()
+        }
     }
 
     private fun checkIfAvailableInDB(): Boolean {
@@ -32,10 +33,12 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val data = repository.allNews
             if (data != null) {
+                Log.d("DB", "checkIfAvailableInDB: Fetching data from db")
                 available = true
                 allNews.value = data.value
             }
         }
+        Log.d("DB", "checkIfAvailableInDB: available:$available")
         return available
     }
 
