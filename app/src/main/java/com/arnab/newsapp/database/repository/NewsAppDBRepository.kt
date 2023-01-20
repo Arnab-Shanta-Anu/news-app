@@ -1,5 +1,6 @@
 package com.arnab.newsapp.database.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Delete
 import com.arnab.newsapp.database.dao.NewsAppDBDao
@@ -7,9 +8,12 @@ import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.model.Article
 
 class NewsAppDBRepository(private val newsAppDBDao: NewsAppDBDao) {
-    //actions for articles table
-    val allNews: LiveData<List<ArticlesDBModel>> = newsAppDBDao.getArticles()
+    val articles: LiveData<List<ArticlesDBModel>> = newsAppDBDao.getArticles()
 
+    //actions for articles table
+    init {
+        Log.d("DB", "articles: ${articles.value}")
+    }
     suspend fun insertArticle(article: ArticlesDBModel) {
         newsAppDBDao.insertArticle(article)
     }

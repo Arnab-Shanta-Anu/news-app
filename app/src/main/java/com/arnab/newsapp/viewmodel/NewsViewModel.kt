@@ -3,6 +3,7 @@ package com.arnab.newsapp.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.arnab.newsapp.database.NewsAppDatabase
@@ -10,6 +11,7 @@ import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.database.repository.NewsAppDBRepository
 import com.arnab.newsapp.model.NewsData
 import com.arnab.newsapp.network.NewsApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
@@ -31,9 +33,10 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun checkIfAvailableInDB(): Boolean {
         var available = false
         viewModelScope.launch {
-            val data = repository.allNews
-            if (data != null) {
-                Log.d("DB", "checkIfAvailableInDB: Fetching data from db")
+            val data: LiveData<List<ArticlesDBModel>> = repository.articles
+            Log.d("DB", "checkIfAvailableInDB: data: ${data.value}")
+            if(data.value != null) {
+                Log.d("DB", "checkIfAvailableInDB: Fetching data from db data: ${data.value}")
                 available = true
                 allNews.value = data.value
             }
