@@ -24,7 +24,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         val dao = NewsAppDatabase.getDatabase(application).newsAppDBDao()
         repository = NewsAppDBRepository(dao)
 
-        //getData()
+        getData()
         getDataFromDB()
     }
 
@@ -35,6 +35,213 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getData() {
+        /*viewModelScope.launch {
+            repository.deleteAllArticles()
+        }*/
+        getAllNews()
+    }
+
+    private fun getAllNews() {
+        getHeadlinesNews()
+        getBusinessNews()
+        getEntertainmentNews()
+        getGeneralNews()
+        getHealthNews()
+        getScienceNews()
+        getSportsNews()
+        getTechnologyNews()
+    }
+
+    private fun getTechnologyNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getTechnologyNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "technology",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getSportsNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getSportsNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "sports",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getScienceNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getScienceNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "science",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getHealthNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getHealthNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "health",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getGeneralNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getGeneralNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "general",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getEntertainmentNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getEntertainmentNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "entertainment",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getBusinessNews() {
+        viewModelScope.launch {
+            try {
+                val data: NewsData = NewsApi.retrofitService.getBusinessNews()
+                _newsData.value = data
+                _newsData.value!!.articles.forEach {
+                    repository.insertArticle(
+                        ArticlesDBModel(
+                            0,
+                            it.author!!,
+                            it.content!!,
+                            "business",
+                            0,
+                            it.description!!,
+                            it.publishedAt!!,
+                            it.title!!,
+                            it.url!!,
+                            it.urlToImage!!
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TEST", "getNews: $e")
+            }
+        }
+    }
+
+    private fun getHeadlinesNews() {
         viewModelScope.launch {
             try {
                 val data: NewsData = NewsApi.retrofitService.getHeadlinesNews()
@@ -45,7 +252,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
                             0,
                             it.author!!,
                             it.content!!,
-                            "abc",
+                            "headlines",
                             0,
                             it.description!!,
                             it.publishedAt!!,

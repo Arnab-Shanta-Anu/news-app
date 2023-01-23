@@ -27,7 +27,7 @@ interface NewsApiService {
     suspend fun getBusinessNews() : NewsData
 
     @GET("top-headlines?country=us&category=entertainment&apiKey=${Constants.API_KEY}")
-    suspend fun getEntertainementNews() : NewsData
+    suspend fun getEntertainmentNews() : NewsData
 
     @GET("top-headlines?country=us&category=general&apiKey=${Constants.API_KEY}")
     suspend fun getGeneralNews() : NewsData
