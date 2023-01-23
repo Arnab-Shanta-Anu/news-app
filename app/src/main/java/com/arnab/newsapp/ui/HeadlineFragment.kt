@@ -34,9 +34,6 @@ class HeadlineFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        /*newsViewModel.newsData.observe(viewLifecycleOwner){
-            recyclerView.adapter = NewsAdapter(requireContext(),it.articles)
-        }*/
         newsViewModel.allNews.observe(viewLifecycleOwner){
             recyclerView.adapter = NewsAdapter(requireContext(), it)
         }

@@ -1,18 +1,12 @@
 package com.arnab.newsapp.database.repository
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.room.Delete
 import com.arnab.newsapp.database.dao.NewsAppDBDao
 import com.arnab.newsapp.database.model.ArticlesDBModel
-import com.arnab.newsapp.model.Article
-import kotlinx.coroutines.flow.Flow
 
 class NewsAppDBRepository(private val newsAppDBDao: NewsAppDBDao) {
 
     suspend fun getArticles(): List<ArticlesDBModel>{
-        Log.d("DB", "getArticles: getting all articles ${newsAppDBDao.getArticles()}")
-        return newsAppDBDao.getArticles()
+        return newsAppDBDao.getAllArticles()
     }
 
     suspend fun insertArticle(article: ArticlesDBModel) {

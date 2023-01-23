@@ -12,6 +12,7 @@ import com.arnab.newsapp.model.NewsData
 import com.arnab.newsapp.network.NewsApi
 import kotlinx.coroutines.launch
 
+const val TAG = "DB"
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private val _newsData = MutableLiveData<NewsData>()
     val newsData = _newsData
@@ -31,13 +32,15 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getDataFromDB() {
         viewModelScope.launch {
             _allNews.postValue(repository.getArticles())
+            Log.d(TAG, "getDataFromDB: getting data from db")
         }
     }
 
     private fun getData() {
-        /*viewModelScope.launch {
-            repository.deleteAllArticles()
-        }*/
+        viewModelScope.launch {
+            //repository.deleteAllArticles()
+            Log.d(TAG, "getData: deleting data from db")
+        }
         getAllNews()
     }
 
@@ -55,9 +58,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getTechnologyNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getTechnologyNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -82,9 +85,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getSportsNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getSportsNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -109,9 +112,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getScienceNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getScienceNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -136,9 +139,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getHealthNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getHealthNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -163,9 +166,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getGeneralNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getGeneralNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -190,9 +193,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getEntertainmentNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getEntertainmentNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+               data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -217,9 +220,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getBusinessNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getBusinessNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -244,9 +247,9 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getHeadlinesNews() {
         viewModelScope.launch {
             try {
+                Log.d(TAG, "getTechnologyNews: getting data from api")
                 val data: NewsData = NewsApi.retrofitService.getHeadlinesNews()
-                _newsData.value = data
-                _newsData.value!!.articles.forEach {
+                data.articles.forEach {
                     repository.insertArticle(
                         ArticlesDBModel(
                             0,
@@ -261,6 +264,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
                             it.urlToImage!!
                         )
                     )
+                    Log.d(TAG, "getHeadlinesNews: pushed data to db")
                 }
             } catch (e: Exception) {
                 Log.e("TEST", "getNews: $e")
