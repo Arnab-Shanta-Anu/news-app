@@ -38,8 +38,6 @@ class HeadlineFragment : Fragment() {
             recyclerView.adapter = NewsAdapter(requireContext(),it.articles)
         }*/
         newsViewModel.allNews.observe(viewLifecycleOwner){
-            Log.d("DB", "onViewCreated: inside observe")
-            Log.d("DB", "onViewCreated: $it")
             recyclerView.adapter = NewsAdapter(requireContext(), it)
         }
     }
