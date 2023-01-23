@@ -14,11 +14,7 @@ import kotlinx.coroutines.launch
 
 const val TAG = "DB"
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
-    private val _newsData = MutableLiveData<NewsData>()
-    val newsData = _newsData
-
-    private val _allNews = MutableLiveData<List<ArticlesDBModel>>()
-    val allNews = _allNews
+    val allNews = MutableLiveData<List<ArticlesDBModel>>()
     private val repository: NewsAppDBRepository
 
     init {
@@ -31,15 +27,15 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getDataFromDB() {
         viewModelScope.launch {
-            _allNews.postValue(repository.getArticles())
+            allNews.postValue(repository.getAllArticles())
             Log.d(TAG, "getDataFromDB: getting data from db")
         }
     }
 
     private fun getData() {
         viewModelScope.launch {
-            //repository.deleteAllArticles()
-            Log.d(TAG, "getData: deleting data from db")
+            repository.deleteAllArticles()
+            Log.d(TAG, "getData: deleted all articles")
         }
         getAllNews()
     }

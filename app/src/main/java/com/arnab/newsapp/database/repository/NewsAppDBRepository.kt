@@ -5,8 +5,12 @@ import com.arnab.newsapp.database.model.ArticlesDBModel
 
 class NewsAppDBRepository(private val newsAppDBDao: NewsAppDBDao) {
 
-    suspend fun getArticles(): List<ArticlesDBModel>{
+    suspend fun getAllArticles(): List<ArticlesDBModel>{
         return newsAppDBDao.getAllArticles()
+    }
+
+    suspend fun getArticlesByCategory(category: String): List<ArticlesDBModel>{
+        return newsAppDBDao.getArticlesByCategory(category)
     }
 
     suspend fun insertArticle(article: ArticlesDBModel) {
