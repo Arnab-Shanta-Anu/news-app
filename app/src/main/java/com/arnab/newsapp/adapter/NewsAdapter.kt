@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.RecyclerView
 import com.arnab.newsapp.R
+import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.model.Article
 import com.arnab.newsapp.ui.NewsFragment
 import com.arnab.newsapp.ui.WebViewFragment
@@ -21,7 +22,8 @@ import com.bumptech.glide.Glide
 
 class NewsAdapter(
     private val context: Context,
-    private val dataSet: List<Article>
+//    private val dataSet: List<Article>
+    private val dataSet: List<ArticlesDBModel>
 ) : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

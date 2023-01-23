@@ -6,14 +6,15 @@ import androidx.room.Delete
 import com.arnab.newsapp.database.dao.NewsAppDBDao
 import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.model.Article
+import kotlinx.coroutines.flow.Flow
 
 class NewsAppDBRepository(private val newsAppDBDao: NewsAppDBDao) {
-    val articles: LiveData<List<ArticlesDBModel>> = newsAppDBDao.getArticles()
 
-    //actions for articles table
-    init {
-        Log.d("DB", "articles: ${articles.value}")
+    suspend fun getArticles(): List<ArticlesDBModel>{
+        Log.d("DB", "getArticles: getting all articles ${newsAppDBDao.getArticles()}")
+        return newsAppDBDao.getArticles()
     }
+
     suspend fun insertArticle(article: ArticlesDBModel) {
         newsAppDBDao.insertArticle(article)
     }

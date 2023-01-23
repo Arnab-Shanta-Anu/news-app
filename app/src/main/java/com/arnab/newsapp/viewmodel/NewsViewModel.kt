@@ -3,7 +3,6 @@ package com.arnab.newsapp.viewmodel
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.arnab.newsapp.database.NewsAppDatabase
@@ -11,38 +10,28 @@ import com.arnab.newsapp.database.model.ArticlesDBModel
 import com.arnab.newsapp.database.repository.NewsAppDBRepository
 import com.arnab.newsapp.model.NewsData
 import com.arnab.newsapp.network.NewsApi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private val _newsData = MutableLiveData<NewsData>()
     val newsData = _newsData
 
-    val allNews = MutableLiveData<List<ArticlesDBModel>>()
-    val repository: NewsAppDBRepository
+    private val _allNews = MutableLiveData<List<ArticlesDBModel>>()
+    val allNews = _allNews
+    private val repository: NewsAppDBRepository
 
     init {
         val dao = NewsAppDatabase.getDatabase(application).newsAppDBDao()
         repository = NewsAppDBRepository(dao)
 
-        if (!checkIfAvailableInDB()) {
-            getData()
-        }
+        getDataFromDB()
+        //getData()
     }
 
-    private fun checkIfAvailableInDB(): Boolean {
-        var available = false
+    private fun getDataFromDB() {
         viewModelScope.launch {
-            val data: LiveData<List<ArticlesDBModel>> = repository.articles
-            Log.d("DB", "checkIfAvailableInDB: data: ${data.value}")
-            if(data.value != null) {
-                Log.d("DB", "checkIfAvailableInDB: Fetching data from db data: ${data.value}")
-                available = true
-                allNews.value = data.value
-            }
+            _allNews.postValue(repository.getArticles())
         }
-        Log.d("DB", "checkIfAvailableInDB: available:$available")
-        return available
     }
 
     private fun getData() {

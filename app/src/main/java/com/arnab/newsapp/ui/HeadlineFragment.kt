@@ -1,6 +1,7 @@
 package com.arnab.newsapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,8 +34,13 @@ class HeadlineFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        newsViewModel.newsData.observe(viewLifecycleOwner){
+        /*newsViewModel.newsData.observe(viewLifecycleOwner){
             recyclerView.adapter = NewsAdapter(requireContext(),it.articles)
+        }*/
+        newsViewModel.allNews.observe(viewLifecycleOwner){
+            Log.d("DB", "onViewCreated: inside observe")
+            Log.d("DB", "onViewCreated: $it")
+            recyclerView.adapter = NewsAdapter(requireContext(), it)
         }
     }
 }

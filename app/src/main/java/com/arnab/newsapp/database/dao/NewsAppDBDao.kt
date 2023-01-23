@@ -1,12 +1,9 @@
 package com.arnab.newsapp.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.arnab.newsapp.database.model.ArticlesDBModel
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NewsAppDBDao {
@@ -15,7 +12,7 @@ interface NewsAppDBDao {
     suspend fun insertArticle(article: ArticlesDBModel)
 
     @Query("SELECT * FROM article")
-    fun getArticles(): LiveData<List<ArticlesDBModel>>
+    suspend fun getArticles(): List<ArticlesDBModel>
 
     @Query("DELETE FROM article WHERE favorite=0")
     suspend fun deleteAllArticles()
