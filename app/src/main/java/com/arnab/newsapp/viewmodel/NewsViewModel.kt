@@ -24,8 +24,8 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
         val dao = NewsAppDatabase.getDatabase(application).newsAppDBDao()
         repository = NewsAppDBRepository(dao)
 
-        getDataFromDB()
         //getData()
+        getDataFromDB()
     }
 
     private fun getDataFromDB() {
@@ -37,7 +37,7 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private fun getData() {
         viewModelScope.launch {
             try {
-                val data: NewsData = NewsApi.retrofitService.getData()
+                val data: NewsData = NewsApi.retrofitService.getHeadlinesNews()
                 _newsData.value = data
                 _newsData.value!!.articles.forEach {
                     repository.insertArticle(

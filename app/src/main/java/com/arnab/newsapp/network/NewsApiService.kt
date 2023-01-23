@@ -20,8 +20,29 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface NewsApiService {
-    @GET("everything?q=*&apiKey=${Constants.API_KEY}")
-    suspend fun getData() : NewsData
+    @GET("top-headlines?country=us&apiKey=${Constants.API_KEY}")
+    suspend fun getHeadlinesNews() : NewsData
+
+    @GET("top-headlines?country=us&category=business&apiKey=${Constants.API_KEY}")
+    suspend fun getBusinessNews() : NewsData
+
+    @GET("top-headlines?country=us&category=entertainment&apiKey=${Constants.API_KEY}")
+    suspend fun getEntertainementNews() : NewsData
+
+    @GET("top-headlines?country=us&category=general&apiKey=${Constants.API_KEY}")
+    suspend fun getGeneralNews() : NewsData
+
+    @GET("top-headlines?country=us&category=health&apiKey=${Constants.API_KEY}")
+    suspend fun getHealthNews() : NewsData
+
+    @GET("top-headlines?country=us&category=science&apiKey=${Constants.API_KEY}")
+    suspend fun getScienceNews() : NewsData
+
+    @GET("top-headlines?country=us&category=sports&apiKey=${Constants.API_KEY}")
+    suspend fun getSportsNews() : NewsData
+
+    @GET("top-headlines?country=us&category=technology&apiKey=${Constants.API_KEY}")
+    suspend fun getTechnologyNews() : NewsData
 }
 object NewsApi {
     val retrofitService: NewsApiService by lazy { retrofit.create(NewsApiService::class.java) }
